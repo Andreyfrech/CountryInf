@@ -10,13 +10,15 @@ using System.Windows.Forms;
 
 namespace CountryInf
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         int a = 0;
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
      
         }
+
+       
     }
 }
