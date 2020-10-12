@@ -44,7 +44,7 @@ namespace CountryInf
             }
             Command_InsertCountry.ExecuteNonQuery();
             sqlConnection.Close();
-            
+            MessageBox.Show("Данные успешно сохранены","Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

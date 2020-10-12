@@ -39,19 +39,27 @@ namespace CountryInf
             /// </summary>
             
             listViewCoutryInfo.Items.Clear();
+           int i = listViewCoutryInfo.Items.Count;
             ListViewItem item = listViewCoutryInfo.Items.Add(SerchCountry.result[0]);
             item.SubItems.Add(SerchCountry.result[1]);
             item.SubItems.Add(SerchCountry.result[2]);
             item.SubItems.Add(SerchCountry.result[3]);
             item.SubItems.Add(SerchCountry.result[4]);
             item.SubItems.Add(SerchCountry.result[5]);
-           
-            DialogResult dialogResultSave = MessageBox.Show("Сохранить данные?", "Сообщение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if(dialogResultSave == DialogResult.Yes)
+
+            if (Convert.ToString(listViewCoutryInfo.Items[0].Text) != "")
             {
-                ToolStripMenuItemSave_Click(sender, e);
+
+                
+                DialogResult dialogResultSave = MessageBox.Show("Сохранить данные?", "Сообщение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialogResultSave == DialogResult.Yes)
+                {
+                    ToolStripMenuItemSave_Click(sender, e);
+                }
             }
+            
         }
 
         private void textBoxEnterCountry_TextChanged(object sender, EventArgs e)
@@ -66,7 +74,7 @@ namespace CountryInf
             }
         }
 
-        private void ToolStripMenuItemSave_Click(object sender, EventArgs e)
+        public void ToolStripMenuItemSave_Click(object sender, EventArgs e)
         {
             //
             // Преобразование площади из string (записанная через точку) в double 
