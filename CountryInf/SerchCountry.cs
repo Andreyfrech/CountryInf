@@ -11,11 +11,12 @@ using System.Xml.Linq;
 namespace CountryInf
 {
     
-    class SerchCountry 
+    class  SerchCountry 
     {
-        FormMain formMain = new FormMain();
+     
+       // FormMain formMain = new FormMain();
 
-        public string[] result = new string[6] ;
+        public string[] result = new string[6] ;// массив строк с данными о стране
         public string[] Serch(string country)
         {
             
@@ -28,17 +29,14 @@ namespace CountryInf
             Match countryArea = Regex.Match(Page, ("(?<=\"area\":)[^,]*"));// Регулярное выражение для вывода площади страны
             Match countryPopulation = Regex.Match(Page, ("(?<=\"population\":)[^,]*"));// Регулярное выражение для вывода населения страны
             Match countryRegion = Regex.Match(Page, ("(?<=\"region\":\")[^\"]*"));// Регулярное выражение для вывода региона страны
-
-
-
+            
             result[0] = Convert.ToString(countryName);
             result[1] = Convert.ToString(countryCode);
             result[2] = Convert.ToString(countryCapital);
-           result[3] = Convert.ToString(countryArea);
+            result[3] = Convert.ToString(countryArea);
             result[4] = Convert.ToString(countryPopulation);
             result[5] = Convert.ToString(countryRegion);
-            //result = Convert.ToString(countryName) + " " + Convert.ToString(countryCode) + " " + Convert.ToString(countryCapital) + " " + Convert.ToString(countryArea) + " " + Convert.ToString(countryPopulation) + " " + Convert.ToString(countryRegion);
-            return result;
+             return result;
 
           
         }

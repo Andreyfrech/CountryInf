@@ -56,6 +56,7 @@
             this.textBoxEnterCountry.Name = "textBoxEnterCountry";
             this.textBoxEnterCountry.Size = new System.Drawing.Size(618, 22);
             this.textBoxEnterCountry.TabIndex = 0;
+            this.textBoxEnterCountry.TextChanged += new System.EventHandler(this.textBoxEnterCountry_TextChanged);
             // 
             // menuStrip1
             // 
@@ -80,8 +81,9 @@
             // ToolStripMenuItemSave
             // 
             this.ToolStripMenuItemSave.Name = "ToolStripMenuItemSave";
-            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(207, 26);
+            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(224, 26);
             this.ToolStripMenuItemSave.Text = "Сохранить";
+            this.ToolStripMenuItemSave.Click += new System.EventHandler(this.ToolStripMenuItemSave_Click);
             // 
             // ToolStripMenuItemLoad
             // 
@@ -100,6 +102,7 @@
             // 
             // buttonSerch
             // 
+            this.buttonSerch.Enabled = false;
             this.buttonSerch.Location = new System.Drawing.Point(12, 153);
             this.buttonSerch.Name = "buttonSerch";
             this.buttonSerch.Size = new System.Drawing.Size(618, 27);
