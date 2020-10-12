@@ -14,11 +14,13 @@ namespace CountryInf
     {
       public static string connectionString = ConfigurationManager.ConnectionStrings["CountryInf.Properties.Settings.CountryInfConnectionString"].ConnectionString.ToString();
         SqlConnection sqlConnection = new SqlConnection(connectionString);
-        //public static string connectionString = ConfigurationManager.ConnectionStrings["CountryInf"].ConnectionString;
-
+       
         SerchCountry serchCountry = new SerchCountry();
         public void SaveData(string name, string codeCountry, string capital, double area, int population, string region)
         {
+            //
+            //Передача параметров в ХП и вызов ХП
+            //
             SqlCommand Command_InsertCountry = new SqlCommand();
             Command_InsertCountry.Connection = sqlConnection;
             Command_InsertCountry.CommandType = System.Data.CommandType.StoredProcedure;
@@ -35,11 +37,14 @@ namespace CountryInf
             Command_InsertCountry.Parameters["@Population"].Value = population;
             Command_InsertCountry.Parameters.Add("@Region", SqlDbType.VarChar);
             Command_InsertCountry.Parameters["@Region"].Value = region;
-            sqlConnection.Open();
 
+            if (sqlConnection.State == ConnectionState.Closed)
+            {
+                sqlConnection.Open();
+            }
             Command_InsertCountry.ExecuteNonQuery();
-            //MessageBox.Show(Convert.ToString(area));// + " " + codeCountry + " " + capital + " " + area + " " + population);// + " " + region);
-
+            sqlConnection.Close();
+            
         }
     }
 }

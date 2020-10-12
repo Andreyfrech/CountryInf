@@ -81,7 +81,7 @@
             // ToolStripMenuItemSave
             // 
             this.ToolStripMenuItemSave.Name = "ToolStripMenuItemSave";
-            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(224, 26);
+            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(207, 26);
             this.ToolStripMenuItemSave.Text = "Сохранить";
             this.ToolStripMenuItemSave.Click += new System.EventHandler(this.ToolStripMenuItemSave_Click);
             // 
@@ -133,7 +133,7 @@
             this.listViewCoutryInfo.HideSelection = false;
             this.listViewCoutryInfo.Location = new System.Drawing.Point(12, 216);
             this.listViewCoutryInfo.Name = "listViewCoutryInfo";
-            this.listViewCoutryInfo.Size = new System.Drawing.Size(618, 194);
+            this.listViewCoutryInfo.Size = new System.Drawing.Size(891, 194);
             this.listViewCoutryInfo.TabIndex = 4;
             this.listViewCoutryInfo.UseCompatibleStateImageBehavior = false;
             this.listViewCoutryInfo.View = System.Windows.Forms.View.Details;

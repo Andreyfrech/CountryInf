@@ -45,7 +45,13 @@ namespace CountryInf
             item.SubItems.Add(SerchCountry.result[3]);
             item.SubItems.Add(SerchCountry.result[4]);
             item.SubItems.Add(SerchCountry.result[5]);
+           
+            DialogResult dialogResultSave = MessageBox.Show("Сохранить данные?", "Сообщение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+            if(dialogResultSave == DialogResult.Yes)
+            {
+                ToolStripMenuItemSave_Click(sender, e);
+            }
         }
 
         private void textBoxEnterCountry_TextChanged(object sender, EventArgs e)
