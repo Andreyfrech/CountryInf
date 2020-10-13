@@ -18,8 +18,7 @@ namespace CountryInf
 {
     public partial class FormMain : Form
     {
-        //string sqlConnection = ConfigurationManager.ConnectionStrings["CountryInf.Properties.Settings.CountryInfConnectionString"].ConnectionString.ToString();
-
+        int i = 0;
         SerchCountry SerchCountry = new SerchCountry();
         DataBase DataBase = new DataBase();
         public FormMain()
@@ -39,7 +38,7 @@ namespace CountryInf
             /// </summary>
             
             listViewCoutryInfo.Items.Clear();
-           int i = listViewCoutryInfo.Items.Count;
+          
             ListViewItem item = listViewCoutryInfo.Items.Add(SerchCountry.result[0]);
             item.SubItems.Add(SerchCountry.result[1]);
             item.SubItems.Add(SerchCountry.result[2]);
@@ -84,8 +83,23 @@ namespace CountryInf
             double area = double.Parse(SerchCountry.result[3]);
             Thread.CurrentThread.CurrentCulture = temp_culture;
 
-           // DataBase.SaveData(d);
+           // Сохранение данных в бд
              DataBase.SaveData(SerchCountry.result[0], SerchCountry.result[1], SerchCountry.result[2], area, Convert.ToInt32(SerchCountry.result[4]), SerchCountry.result[5]);
+        }
+
+        private void ToolStripMenuItemLoad_Click(object sender, EventArgs e)
+        {
+            DataBase.OutCountry();
+            listViewCoutryInfo.Items.Clear();
+            for (i = 0; i < DataBase.outCountry.Count ; i+=6)
+            {
+                ListViewItem item = listViewCoutryInfo.Items.Add(DataBase.outCountry[i]);
+                item.SubItems.Add(DataBase.outCountry[i+1]);
+                item.SubItems.Add(DataBase.outCountry[i+2]);
+                item.SubItems.Add(DataBase.outCountry[i+3]);
+                item.SubItems.Add(DataBase.outCountry[i+4]);
+                item.SubItems.Add(DataBase.outCountry[i+5]);
+            }
         }
     }
 }

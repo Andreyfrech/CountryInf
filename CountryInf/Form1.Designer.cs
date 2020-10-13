@@ -81,15 +81,16 @@
             // ToolStripMenuItemSave
             // 
             this.ToolStripMenuItemSave.Name = "ToolStripMenuItemSave";
-            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(207, 26);
+            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(224, 26);
             this.ToolStripMenuItemSave.Text = "Сохранить";
             this.ToolStripMenuItemSave.Click += new System.EventHandler(this.ToolStripMenuItemSave_Click);
             // 
             // ToolStripMenuItemLoad
             // 
             this.ToolStripMenuItemLoad.Name = "ToolStripMenuItemLoad";
-            this.ToolStripMenuItemLoad.Size = new System.Drawing.Size(207, 26);
-            this.ToolStripMenuItemLoad.Text = "Выгрузить из БД";
+            this.ToolStripMenuItemLoad.Size = new System.Drawing.Size(224, 26);
+            this.ToolStripMenuItemLoad.Text = "Все страны";
+            this.ToolStripMenuItemLoad.Click += new System.EventHandler(this.ToolStripMenuItemLoad_Click);
             // 
             // labelEnterCountry
             // 

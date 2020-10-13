@@ -14,7 +14,10 @@ namespace CountryInf
     {
       public static string connectionString = ConfigurationManager.ConnectionStrings["CountryInf.Properties.Settings.CountryInfConnectionString"].ConnectionString.ToString();
         SqlConnection sqlConnection = new SqlConnection(connectionString);
-       
+        SqlDataReader dataReader;
+        int i = 0;
+        
+        public List<string> outCountry = new List<string>();// массив строк с данными о стране
         SerchCountry serchCountry = new SerchCountry();
         public void SaveData(string name, string codeCountry, string capital, double area, int population, string region)
         {
@@ -45,6 +48,45 @@ namespace CountryInf
             Command_InsertCountry.ExecuteNonQuery();
             sqlConnection.Close();
             MessageBox.Show("Данные успешно сохранены","Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        public List<String> OutCountry()
+        {
+            FormMain formMain = new FormMain();
+            SqlCommand Command_OutputCountry = new SqlCommand();
+            Command_OutputCountry.Connection = sqlConnection;
+            Command_OutputCountry.CommandType = System.Data.CommandType.StoredProcedure;
+            Command_OutputCountry.CommandText = "OutputCountry";
+
+            if (sqlConnection.State == ConnectionState.Closed)
+            {
+                sqlConnection.Open();
+            }
+            
+            dataReader = Command_OutputCountry.ExecuteReader();
+            if (dataReader.HasRows)
+            {
+                while (dataReader.Read())
+                {
+                    {
+                        
+
+                       outCountry.Add(dataReader.GetValue(0).ToString());
+                      
+                        outCountry.Add(dataReader.GetValue(1).ToString());
+                        outCountry.Add(dataReader.GetValue(2).ToString());
+                        outCountry.Add(dataReader.GetValue(3).ToString());
+                        outCountry.Add(dataReader.GetValue(4).ToString());
+                        outCountry.Add(dataReader.GetValue(5).ToString());
+                        
+
+                    }
+
+                }
+              // return outCountry;
+              
+            }
+            sqlConnection.Close();
+           return outCountry;
         }
     }
 }
