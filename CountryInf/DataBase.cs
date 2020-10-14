@@ -12,13 +12,16 @@ namespace CountryInf
 {
     class DataBase 
     {
+        //Строка подключения к бд из app.config
       public static string connectionString = ConfigurationManager.ConnectionStrings["CountryInf.Properties.Settings.CountryInfConnectionString"].ConnectionString.ToString();
         SqlConnection sqlConnection = new SqlConnection(connectionString);
         SqlDataReader dataReader;
-        int i = 0;
+       
         
-        public List<string> outCountry = new List<string>();// массив строк с данными о стране
+        public List<string> outCountry = new List<string>();// список строк с данными о стране
         SerchCountry serchCountry = new SerchCountry();
+
+        #region Сохранение в бд
         public void SaveData(string name, string codeCountry, string capital, double area, int population, string region)
         {
             //
@@ -49,9 +52,12 @@ namespace CountryInf
             sqlConnection.Close();
             MessageBox.Show("Данные успешно сохранены","Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+        #endregion
+
+        #region Вывод из БД
         public List<String> OutCountry()
         {
-            FormMain formMain = new FormMain();
+            
             SqlCommand Command_OutputCountry = new SqlCommand();
             Command_OutputCountry.Connection = sqlConnection;
             Command_OutputCountry.CommandType = System.Data.CommandType.StoredProcedure;
@@ -67,26 +73,18 @@ namespace CountryInf
             {
                 while (dataReader.Read())
                 {
-                    {
-                        
-
-                       outCountry.Add(dataReader.GetValue(0).ToString());
-                      
+                        outCountry.Add(dataReader.GetValue(0).ToString());
                         outCountry.Add(dataReader.GetValue(1).ToString());
                         outCountry.Add(dataReader.GetValue(2).ToString());
                         outCountry.Add(dataReader.GetValue(3).ToString());
                         outCountry.Add(dataReader.GetValue(4).ToString());
                         outCountry.Add(dataReader.GetValue(5).ToString());
-                        
-
-                    }
-
                 }
-              // return outCountry;
-              
             }
+            dataReader.Close();
             sqlConnection.Close();
            return outCountry;
         }
+        #endregion
     }
 }

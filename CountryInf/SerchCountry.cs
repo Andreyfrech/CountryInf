@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CountryInf.ClassRegexCountry;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,41 +14,38 @@ namespace CountryInf
     
     class  SerchCountry 
     {
-
-        
-        string Page;
-        public string[] result = new string[6] ;// массив строк с данными о стране
-        public string[] Serch(string country)
+       
+        public string Page { get; set; }
+      
+       public  List<string> result = new List<string>(); // массив строк с данными о стране
+       
+        //Поиск информации о стране
+        public List<string> Serch(string country)
         {
-            FormMain formMain = new FormMain();
+            RegexCountryName regexCountryName = new RegexCountryName();
+            RegexCountryCode regexCountryCode = new RegexCountryCode();
+            RegexCountryCapital regexCountryCapital = new RegexCountryCapital();
+            RegexCountryArea regexCountryArea = new RegexCountryArea();
+            RegexCountryPopulation regexCountryPopulation = new RegexCountryPopulation();
+            RegexCountryRegion regexCountryRegion = new RegexCountryRegion();
+            
+
             WebClient wc = new WebClient();
             try
             {
                  Page = wc.DownloadString("https://restcountries.eu/rest/v2/name/" + country); //Скачивание странницы с нужной странной
-          
-            Match countryName = Regex.Match(Page, ("(?<=\"name\":\")[^\"]*"));// Регулярное выражение для вывода названия страны
-            Match countryCode = Regex.Match(Page, ("(?<=\"alpha2Code\":\")[^\"]*"));// Регулярное выражение для вывода кода страны
-            Match countryCapital = Regex.Match(Page, ("(?<=\"capital\":\")[^\"]*"));// Регулярное выражение для вывода столицы страны
-            Match countryArea = Regex.Match(Page, ("(?<=\"area\":)[^,]*"));// Регулярное выражение для вывода площади страны
-            Match countryPopulation = Regex.Match(Page, ("(?<=\"population\":)[^,]*"));// Регулярное выражение для вывода населения страны
-            Match countryRegion = Regex.Match(Page, ("(?<=\"region\":\")[^\"]*"));// Регулярное выражение для вывода региона страны
-
-            result[0] = Convert.ToString(countryName);
-            result[1] = Convert.ToString(countryCode);
-            result[2] = Convert.ToString(countryCapital);
-            result[3] = Convert.ToString(countryArea);
-            result[4] = Convert.ToString(countryPopulation);
-            result[5] = Convert.ToString(countryRegion);
-
-                
-                
+                //Вывод информации о стране в List
+                result =  regexCountryName.regex(Page).Concat(regexCountryCode.regex(Page)).Concat(regexCountryCapital.regex(Page)).Concat(regexCountryArea.regex(Page)).Concat(regexCountryPopulation.regex(Page)).Concat(regexCountryRegion.regex(Page)).ToList();   
             }
             
             catch
             {
-               // formMain.listViewCoutryInfo.Items.Clear();
+                //Очистка List и вывод сообщения, что страна не найдена
+                result.Clear();
                 MessageBox.Show("Страна " + country + " не найдена", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
             }
+            
             return result;
 
 
