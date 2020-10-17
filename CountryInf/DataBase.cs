@@ -35,7 +35,7 @@ namespace CountryInf
             string sqlInsertRegion = string.Format("insert into Регионы (Регионы.Название) values (@Region)");
             string sqlCountCountry = string.Format("SELECT count(*) from Страны where [Код страны] = @CountryCode");
             string sqlInsertCountry = string.Format("insert into Страны (Страны.Название, [Код страны], Столица, Площадь, Население, Регион) values (@Country, @CountryCode, (select id from Города where Название = @Capital), @Area, @Population, (select id from Регионы where Название = @Region))");
-
+            string sqlUpdateCountry = string.Format("Update Страны set Название = @Country, [Код страны] = @CountryCode, Столица = (select id from Города where Название = @Capital), Площадь = @Area, Население = @Population, Регион = (select id from Регионы where Название = @Region) 	where [Код страны] = @CountryCode");
 
             // Command_InsertCountry.Connection = sqlConnection;
             //Command_InsertCountry.CommandType = System.Data.CommandType.StoredProcedure;
@@ -105,9 +105,16 @@ namespace CountryInf
             }
           countCountry = Convert.ToInt32(Command_CountCountry.ExecuteScalar());
             sqlConnection.Close();
-
-            SqlCommand Command_InsertCountry = new SqlCommand(sqlInsertCountry, sqlConnection);
-            Command_InsertCountry.Parameters.Add("@Country", SqlDbType.VarChar);
+            SqlCommand Command_InsertCountry = new SqlCommand();
+            if (countCountry == 0)
+            {
+                 Command_InsertCountry = new SqlCommand(sqlInsertCountry, sqlConnection);
+            }
+            else
+            {
+                Command_InsertCountry = new SqlCommand(sqlUpdateCountry, sqlConnection);
+            }
+                Command_InsertCountry.Parameters.Add("@Country", SqlDbType.VarChar);
             Command_InsertCountry.Parameters["@Country"].Value = name;
             Command_InsertCountry.Parameters.Add("@CountryCode", SqlDbType.VarChar);
             Command_InsertCountry.Parameters["@CountryCode"].Value = codeCountry;
@@ -124,11 +131,12 @@ namespace CountryInf
             {
                 sqlConnection.Open();
             }
-            if (countCountry == 0)
-            {
+           
+           
                 Command_InsertCountry.ExecuteNonQuery();
                 sqlConnection.Close();
-            }
+           
+
             MessageBox.Show("Данные успешно сохранены","Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion

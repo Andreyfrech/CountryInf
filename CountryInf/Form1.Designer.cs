@@ -65,7 +65,7 @@
             this.ToolStripMenuItemFaile});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(915, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1010, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -81,14 +81,14 @@
             // ToolStripMenuItemSave
             // 
             this.ToolStripMenuItemSave.Name = "ToolStripMenuItemSave";
-            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(224, 26);
+            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(170, 26);
             this.ToolStripMenuItemSave.Text = "Сохранить";
             this.ToolStripMenuItemSave.Click += new System.EventHandler(this.ToolStripMenuItemSave_Click);
             // 
             // ToolStripMenuItemLoad
             // 
             this.ToolStripMenuItemLoad.Name = "ToolStripMenuItemLoad";
-            this.ToolStripMenuItemLoad.Size = new System.Drawing.Size(224, 26);
+            this.ToolStripMenuItemLoad.Size = new System.Drawing.Size(170, 26);
             this.ToolStripMenuItemLoad.Text = "Все страны";
             this.ToolStripMenuItemLoad.Click += new System.EventHandler(this.ToolStripMenuItemLoad_Click);
             // 
@@ -134,7 +134,7 @@
             this.listViewCoutryInfo.HideSelection = false;
             this.listViewCoutryInfo.Location = new System.Drawing.Point(12, 216);
             this.listViewCoutryInfo.Name = "listViewCoutryInfo";
-            this.listViewCoutryInfo.Size = new System.Drawing.Size(891, 194);
+            this.listViewCoutryInfo.Size = new System.Drawing.Size(967, 194);
             this.listViewCoutryInfo.TabIndex = 4;
             this.listViewCoutryInfo.UseCompatibleStateImageBehavior = false;
             this.listViewCoutryInfo.View = System.Windows.Forms.View.Details;
@@ -173,7 +173,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(915, 450);
+            this.ClientSize = new System.Drawing.Size(1010, 450);
             this.Controls.Add(this.listViewCoutryInfo);
             this.Controls.Add(this.buttonSerch);
             this.Controls.Add(this.labelEnterCountry);

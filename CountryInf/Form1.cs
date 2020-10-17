@@ -84,16 +84,19 @@ namespace CountryInf
         //Пункт меню сохранить данные
         public void ToolStripMenuItemSave_Click(object sender, EventArgs e)
         {
-            //
-            // Преобразование площади из string (записанная через точку) в double 
-            //
-            CultureInfo temp_culture = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
-            double area = double.Parse(SerchCountry.result[3]);
-            Thread.CurrentThread.CurrentCulture = temp_culture;
+            if (listViewCoutryInfo.Items.Count == 1)
+            {
+                //
+                // Преобразование площади из string (записанная через точку) в double 
+                //
+                CultureInfo temp_culture = Thread.CurrentThread.CurrentCulture;
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+                double area = double.Parse(SerchCountry.result[3]);
+                Thread.CurrentThread.CurrentCulture = temp_culture;
 
-           // Сохранение данных в бд
-             DataBase.SaveData(SerchCountry.result[0], SerchCountry.result[1], SerchCountry.result[2], area, Convert.ToInt32(SerchCountry.result[4]), SerchCountry.result[5]);
+                // Сохранение данных в бд
+                DataBase.SaveData(SerchCountry.result[0], SerchCountry.result[1], SerchCountry.result[2], area, Convert.ToInt32(SerchCountry.result[4]), SerchCountry.result[5]);
+            }
         }
         //Пункт меню вывод всех стран
         private void ToolStripMenuItemLoad_Click(object sender, EventArgs e)
