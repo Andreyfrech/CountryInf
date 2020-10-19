@@ -26,20 +26,23 @@ namespace CountryInf
         #region Сохранение в бд
         public void SaveData(string name, string codeCountry, string capital, double area, int population, string region)
         {
-            //
-            //Передача параметров в ХП и вызов ХП
-            //
+           
+            //Проверка на наличие города
             string sqlCountCity = string.Format("SELECT Count(*) from Города where Города.Название = @Capital");
+            //Вставка города
             string sqlInsertCity = string.Format("insert into Города (Города.Название) values (@Capital)");
+            //Проверка на наличие региона
             string sqlCountRegion = string.Format("Select Count(*) from Регионы where Название = @Region");
+            //Вставка региона
             string sqlInsertRegion = string.Format("insert into Регионы (Регионы.Название) values (@Region)");
+            //Проверка на наличие страны
             string sqlCountCountry = string.Format("SELECT count(*) from Страны where [Код страны] = @CountryCode");
+            //Вставка страны
             string sqlInsertCountry = string.Format("insert into Страны (Страны.Название, [Код страны], Столица, Площадь, Население, Регион) values (@Country, @CountryCode, (select id from Города where Название = @Capital), @Area, @Population, (select id from Регионы where Название = @Region))");
+            //Обновление страны
             string sqlUpdateCountry = string.Format("Update Страны set Название = @Country, [Код страны] = @CountryCode, Столица = (select id from Города where Название = @Capital), Площадь = @Area, Население = @Population, Регион = (select id from Регионы where Название = @Region) 	where [Код страны] = @CountryCode");
 
-            // Command_InsertCountry.Connection = sqlConnection;
-            //Command_InsertCountry.CommandType = System.Data.CommandType.StoredProcedure;
-            //Command_InsertCountry.CommandText = "InsertCountry";
+            
             SqlCommand Command_CountCity = new SqlCommand(sqlCountCity, sqlConnection);
            
             Command_CountCity.Parameters.Add("@Capital", SqlDbType.VarChar);
