@@ -35,14 +35,8 @@ namespace CountryInf
         {
              ListViewClear();
 
-
             SerchCountry.Serch(textBoxEnterCountry.Text);// Вызов метода Serch (поиск информации о введенной стране) 
-
-            //
-            //Вывод информации в ListView
-            // 
-            
-           
+            //Вывод информации в ListView 
             try
             {
                 for (i = 0; i < 6; i += listViewCoutryInfo.Columns.Count)
@@ -57,8 +51,6 @@ namespace CountryInf
                 // Вывод сообщения сохранять данные или нет
             if (Convert.ToString(listViewCoutryInfo.Items[0].Text) != "")
             {
-
-                
                 DialogResult dialogResultSave = MessageBox.Show("Сохранить данные?", "Сообщение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (dialogResultSave == DialogResult.Yes)
@@ -95,7 +87,9 @@ namespace CountryInf
                 Thread.CurrentThread.CurrentCulture = temp_culture;
 
                 // Сохранение данных в бд
-                DataBase.SaveData(SerchCountry.result[0], SerchCountry.result[1], SerchCountry.result[2], area, Convert.ToInt32(SerchCountry.result[4]), SerchCountry.result[5]);
+                DataBase.SaveCity(SerchCountry.result[2]);
+                DataBase.SaveRegion(SerchCountry.result[5]);
+                DataBase.SaveCountry(SerchCountry.result[0], SerchCountry.result[1], SerchCountry.result[2], area, Convert.ToInt32(SerchCountry.result[4]), SerchCountry.result[5]);
             }
         }
         //Пункт меню вывод всех стран

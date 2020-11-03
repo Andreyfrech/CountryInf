@@ -23,18 +23,68 @@ namespace CountryInf
 
         int countCity, countRegion, countCountry;
 
-        #region Сохранение в бд
-        public void SaveData(string name, string codeCountry, string capital, double area, int population, string region)
+        public void OpenConnection()
         {
-           
+            if (sqlConnection.State == ConnectionState.Closed)
+            {
+                sqlConnection.Open();
+            }
+        }
+
+        #region Сохранение в бд
+        public void SaveCity (string capital)
+        {
             //Проверка на наличие города
             string sqlCountCity = string.Format("SELECT Count(*) from Города where Города.Название = @Capital");
             //Вставка города
             string sqlInsertCity = string.Format("insert into Города (Города.Название) values (@Capital)");
+
+            OpenConnection();
+            SqlCommand Command_CountCity = new SqlCommand(sqlCountCity, sqlConnection);
+
+            Command_CountCity.Parameters.Add("@Capital", SqlDbType.VarChar);
+            Command_CountCity.Parameters["@Capital"].Value = capital;
+
+            countCity = Convert.ToInt32(Command_CountCity.ExecuteScalar());
+
+            SqlCommand Command_InsertCity = new SqlCommand(sqlInsertCity, sqlConnection);
+
+            Command_InsertCity.Parameters.Add("@Capital", SqlDbType.VarChar);
+            Command_InsertCity.Parameters["@Capital"].Value = capital;
+
+            if (countCity == 0)
+            {
+                Command_InsertCity.ExecuteNonQuery();
+            }
+            sqlConnection.Close();
+        }
+
+        public void SaveRegion(string region)
+        {
+            OpenConnection();
             //Проверка на наличие региона
             string sqlCountRegion = string.Format("Select Count(*) from Регионы where Название = @Region");
             //Вставка региона
             string sqlInsertRegion = string.Format("insert into Регионы (Регионы.Название) values (@Region)");
+
+            SqlCommand Command_CountRegion = new SqlCommand(sqlCountRegion, sqlConnection);
+
+            Command_CountRegion.Parameters.Add("@Region", SqlDbType.VarChar);
+            Command_CountRegion.Parameters["@Region"].Value = region;
+
+            countRegion = Convert.ToInt32(Command_CountRegion.ExecuteScalar());
+            SqlCommand Command_InsertRegion = new SqlCommand(sqlInsertRegion, sqlConnection);
+            Command_InsertRegion.Parameters.Add("@Region", SqlDbType.VarChar);
+            Command_InsertRegion.Parameters["@Region"].Value = region;
+
+            if (countRegion == 0)
+            {
+                Command_InsertRegion.ExecuteNonQuery();
+            }
+            sqlConnection.Close();
+        }
+        public void SaveCountry(string name, string codeCountry, string capital, double area, int population, string region)
+        {
             //Проверка на наличие страны
             string sqlCountCountry = string.Format("SELECT count(*) from Страны where [Код страны] = @CountryCode");
             //Вставка страны
@@ -42,72 +92,14 @@ namespace CountryInf
             //Обновление страны
             string sqlUpdateCountry = string.Format("Update Страны set Название = @Country, [Код страны] = @CountryCode, Столица = (select id from Города where Название = @Capital), Площадь = @Area, Население = @Population, Регион = (select id from Регионы where Название = @Region) 	where [Код страны] = @CountryCode");
 
-            
-            SqlCommand Command_CountCity = new SqlCommand(sqlCountCity, sqlConnection);
            
-            Command_CountCity.Parameters.Add("@Capital", SqlDbType.VarChar);
-            Command_CountCity.Parameters["@Capital"].Value = capital;
-            
-
-            if (sqlConnection.State == ConnectionState.Closed)
-            {
-                sqlConnection.Open();
-            }
-            countCity = Convert.ToInt32(Command_CountCity.ExecuteScalar());
-            sqlConnection.Close();
-
-            SqlCommand Command_InsertCity = new SqlCommand(sqlInsertCity, sqlConnection);
-            
-            Command_InsertCity.Parameters.Add("@Capital", SqlDbType.VarChar);
-            Command_InsertCity.Parameters["@Capital"].Value = capital;
-            
-
-            if (sqlConnection.State == ConnectionState.Closed)
-            {
-                sqlConnection.Open();
-            }
-            if (countCity == 0)
-            {
-                Command_InsertCity.ExecuteNonQuery();
-                sqlConnection.Close();
-            }
-
-            SqlCommand Command_CountRegion = new SqlCommand(sqlCountRegion, sqlConnection);
-            
-            Command_CountRegion.Parameters.Add("@Region", SqlDbType.VarChar);
-            Command_CountRegion.Parameters["@Region"].Value = region;
-
-            if (sqlConnection.State == ConnectionState.Closed)
-            {
-                sqlConnection.Open();
-            }
-           countRegion = Convert.ToInt32(Command_CountRegion.ExecuteScalar());
-            sqlConnection.Close();
-
-            SqlCommand Command_InsertRegion = new SqlCommand(sqlInsertRegion, sqlConnection);
-            
-            Command_InsertRegion.Parameters.Add("@Region", SqlDbType.VarChar);
-            Command_InsertRegion.Parameters["@Region"].Value = region;
-
-            if (sqlConnection.State == ConnectionState.Closed)
-            {
-                sqlConnection.Open();
-            }
-            if (countRegion == 0)
-            {
-                Command_InsertRegion.ExecuteNonQuery();
-                sqlConnection.Close();
-            }
             SqlCommand Command_CountCountry = new SqlCommand(sqlCountCountry, sqlConnection);
             Command_CountCountry.Parameters.Add("@CountryCode", SqlDbType.VarChar);
             Command_CountCountry.Parameters["@CountryCode"].Value = codeCountry;
 
-            if (sqlConnection.State == ConnectionState.Closed)
-            {
-                sqlConnection.Open();
-            }
+          
           countCountry = Convert.ToInt32(Command_CountCountry.ExecuteScalar());
-            sqlConnection.Close();
+           
             SqlCommand Command_InsertCountry = new SqlCommand();
             if (countCountry == 0)
             {
@@ -130,11 +122,7 @@ namespace CountryInf
             Command_InsertCountry.Parameters.Add("@Region", SqlDbType.VarChar);
             Command_InsertCountry.Parameters["@Region"].Value = region;
 
-            if (sqlConnection.State == ConnectionState.Closed)
-            {
-                sqlConnection.Open();
-            }
-           
+            
            
                 Command_InsertCountry.ExecuteNonQuery();
                 sqlConnection.Close();
